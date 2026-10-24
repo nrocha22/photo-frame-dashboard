@@ -86,6 +86,7 @@ if [ "$FIREWALL" = 1 ] && [ ! -e /data/local/frame-nofirewall ]; then
     if frame_firewall; then
         log -t frame-wifidefer "FIREWALL applied: out to $FIREWALL_ALLOW, DNS $FIREWALL_DNS, NTP, DHCP"
         while sleep 60; do
+            [ -e /data/local/frame-nofirewall ] && break # undo without reboot: touch it, then delete the jumps
             iptables -C OUTPUT -j FRAME_OUT 2> /dev/null && ip6tables -C OUTPUT -j FRAME_OUT 2> /dev/null && continue
             frame_firewall && log -t frame-wifidefer "FIREWALL rules were gone (netd restart?); applied again"
         done &

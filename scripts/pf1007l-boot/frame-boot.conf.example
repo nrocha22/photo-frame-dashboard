@@ -31,7 +31,8 @@ ADB_ALLOW=
 # FIREWALL_DNS, NTP (UDP 123) and TCP to each FIREWALL_ALLOW host:port; everything else is refused,
 # the rest of your LAN included, and nothing can connect in (ADB_ALLOW still applies). This keeps the
 # vendor app and any other app off the internet even when it uses a hard-coded IP, which a DNS block
-# can't stop. USB ADB is not affected. Undo: touch /data/local/frame-nofirewall and reboot.
+# can't stop. USB ADB is not affected. Undo: touch /data/local/frame-nofirewall (the loop that
+# keeps the rules in place stops within 60 s), then delete the INPUT/OUTPUT jumps or reboot.
 # FIREWALL_ALLOW: space-separated host:port, for example "192.168.1.10:8123" for Home Assistant.
 # FIREWALL_DNS: the DNS server(s) the frame gets from DHCP (adb shell getprop net.dns1), space-separated.
 FIREWALL=0
