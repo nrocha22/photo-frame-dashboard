@@ -42,6 +42,10 @@ fi
 # before Wi-Fi starts, and a loop puts the rules back if they disappear (netd restart).
 # /data/local/frame-nofirewall skips it (then reboot).
 frame_firewall() {
+    if [ -z "$FIREWALL_ALLOW" ] || [ -z "$FIREWALL_DNS" ]; then
+        log -t frame-wifidefer "FIREWALL: FIREWALL_ALLOW and FIREWALL_DNS must both be set; firewall NOT applied"
+        return 1
+    fi
     if grep -qw state /proc/net/ip_tables_matches; then
         EST="-m state --state ESTABLISHED,RELATED"
     elif grep -qw conntrack /proc/net/ip_tables_matches; then

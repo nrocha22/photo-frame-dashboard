@@ -34,7 +34,9 @@ ADB_ALLOW=
 # can't stop. USB ADB is not affected. Undo: touch /data/local/frame-nofirewall (the loop that
 # keeps the rules in place stops within 60 s), then delete the INPUT/OUTPUT jumps or reboot.
 # FIREWALL_ALLOW: space-separated host:port, for example "192.168.1.10:8123" for Home Assistant.
-# FIREWALL_DNS: the DNS server(s) the frame gets from DHCP (adb shell getprop net.dns1), space-separated.
+# FIREWALL_DNS: the DNS server(s) the frame gets from DHCP, space-separated. Read them with
+# `adb shell dumpsys connectivity | grep DnsAddresses` (`getprop net.dns1` came back empty once).
+# With either of the two empty, the firewall is not applied (logcat says so).
 FIREWALL=0
 FIREWALL_ALLOW=
 FIREWALL_DNS=
